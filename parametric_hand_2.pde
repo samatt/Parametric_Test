@@ -45,10 +45,9 @@ void setup() {
         int index = x+y*hands[j].width;
         float r = hue(hands[j].pixels[index]);
         if (r > 10) {
-          println("fired");
-          for (int i=-1;i<=1;i++) {
+          for (int i=-2;i<2;i++) {
             if (i!=0) {
-              if (hue(hands[j].pixels[x+i+y*hands[j].width]) <= 0 || hue(hands[j].pixels[x+(y+i)*hands[j].width]) <= 0) {
+              if (hue(hands[j].pixels[(x+i)+(y+i)*hands[j].width]) <= 0 || hue(hands[j].pixels[x+(y+i)*hands[j].width]) <= 0 || hue(hands[j].pixels[x+i+y*hands[j].width]) <= 0) {
                 isEdge = true;
               }
             }
@@ -61,6 +60,7 @@ void setup() {
           doit = true;
         }
       }
+    }
       
       vl.add(new UVertex(tmp.get(0)));
       float smallestDistance = 50000;
@@ -75,10 +75,10 @@ void setup() {
           }
         }
         PVector newVec = tmp.get(smallestDistanceIndex);
-        vl.add(new UVertex(newVec));
-        tmp.remove(smallestDistanceIndex);
+        vl.add(new UVertex(tmp.get(smallestDistanceIndex)));
+       // tmp.remove(smallestDistanceIndex);
       }
-    }
+    
     
     
     //      PVector lowest = new PVector(0, height*2, 0);
@@ -166,8 +166,8 @@ void draw() {
   background(255);
   colorMode(RGB);
   //translate(width/2,height/2);
-  //noFill();
-  fill(255, 0, 0, 75);
+  noFill();
+  //fill(255, 0, 0, 75);
   //noFill();
   stroke(0, 0, 0, 100);
   translate(width/2, height/2);
